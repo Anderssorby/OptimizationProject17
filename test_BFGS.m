@@ -6,7 +6,7 @@ p = [3;2]
 
 x0 = [1; 1; 2];
 [theta, k] = BFGS(l, p, x0);
-thGD = gradientDescent(l, p);
+thGD = gradientDescent(l, p, x0);
 fprintf('Solution BFGS\n');
 theta
 f(l,theta',p)
@@ -22,7 +22,7 @@ p = [1;1]
 
 x0 = [1; 1; 2];
 [theta, k] = BFGS(l, p, x0);
-thGD = gradientDescent(l, p);
+thGD = gradientDescent(l, p, x0);
 fprintf('Solution BFGS\n');
 theta
 f(l,theta',p)
@@ -40,7 +40,7 @@ p = [3;2];
 x0 = [1; 1; 2; 0];
 fprintf('#3 Testing\n')
 [theta, k] = BFGS(l, p, x0);
-thGD = gradientDescent(l, p);
+thGD = gradientDescent(l, p, x0);
 fprintf('Solution BFGS\n');
 theta
 f(l,theta',p)
@@ -58,7 +58,7 @@ p = [0;0]
 
 x0 = [1; 1; 2; 0];
 [theta, k] = BFGS(l, p, x0);
-thGD = gradientDescent(l, p);
+thGD = gradientDescent(l, p, x0);
 fprintf('Solution BFGS\n');
 theta
 f(l,theta',p)
