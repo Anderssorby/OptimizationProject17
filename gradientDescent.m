@@ -2,7 +2,7 @@ function theta = gradientDescent(l,p)
 
 theta = zeros(1,length(l));
 count = 0;
-c1 = 0.01;
+c1 = 0.0001;
 gf = gradf(l,theta,p);
 rho = 0.5;
 while 1
