@@ -14,7 +14,20 @@ gf = gradf(l, xk, p);
 k = 0;
 c1 = 0.25;
 rho = 0.5;
-while k < max_steps && norm(gf) > 1E-7
+while 1
+
+    if k > max_steps
+        error('Surpassed max number of iterations');
+    elseif isnan(xk(1))
+        error('NaN');
+    end
+    if norm(gf)<1E-7
+        [b,xk] = checkEnd(l,xk,p);
+        gf = gradf(l, xk, p);
+        if b
+            break
+        end
+    end
     % This can be more efficient
     pk = Bk\(-gf);
     

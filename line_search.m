@@ -24,6 +24,11 @@ constants = [c1, c2];
 i = 1;
 while i < 1000
 
+    if alpha <= 0
+        alpha
+        error('Alpha less than 0')
+    end
+
     phia = phi(alpha);
     if phia > phi0 + c1*alpha*phiBar0 || (phia > prevphi && i > 1)
         alpha = zoom(phi, phiBar, constants, prevalpha, alpha);
