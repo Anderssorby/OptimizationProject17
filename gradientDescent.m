@@ -1,12 +1,11 @@
 function theta = gradientDescent(l,p)
 
 theta = zeros(1,length(l));
-gf = gradf(l,theta,p);
 count = 0;
 c1 = 0.25;
 gf = gradf(l,theta,p);
 rho = 0.5;
-while count < 1000 && norm(gf)>1E-7
+while 1
     count = count + 1;
     a=1;
     while f(l,theta-a*gf,p)>f(l,theta,p)-c1*a*(gf*gf')
@@ -14,9 +13,14 @@ while count < 1000 && norm(gf)>1E-7
     end
     theta = theta - gf*a;
     gf=gradf(l,theta,p);
+    if count > 1000
+        error('Surpassed max number of iterations');
+    end
+    if norm(gf)<1E-7
+        [b,theta] = checkEnd(l,theta,p);
+        if b
+            break
+        end
+    end
 end
-
-count
-
 end
-    
