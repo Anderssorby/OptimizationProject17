@@ -1,4 +1,4 @@
-function bool = checkEnd(l,theta,p)
+function [bool,theta] = checkEnd(l,theta,p)
 e = f(l,theta,p);
 epsi = 1E-3;
 for i = 1:length(l)
