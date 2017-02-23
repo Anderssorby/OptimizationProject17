@@ -2,7 +2,7 @@ function [alpha] = line_search(phi, phiBar)
 % Algorithm 3.5 
 
 % alpha0
-amax = 1;
+%amax = 1;
 
 c1 = 1E-4;
 c2 = 0.1;
