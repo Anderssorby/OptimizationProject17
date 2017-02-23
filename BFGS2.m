@@ -29,18 +29,16 @@ while 1
     end
     % This can be more efficient
     pk = Hk*(-gf);
-    alpha=1;
-    % Line search
-    while f(l, xk + alpha*pk, p) > f(l, xk, p) + c1*alpha*(pk'*pk)
-        alpha = rho*alpha;
-    end
+
+    phi = @(alpha) f(l, xk + alpha*pk, p);
+    alpha = naive_line_search(c1, phi, pk);
+
     xk = xk + alpha*pk;
     sk = alpha*pk;
     gfkp1 = gradf(l, xk, p);
     yk = gfkp1 - gf;
     rhok = yk'*sk;
     rhok=1/rhok;
-    %Bk = Bk + (yk*yk')/(yk'*sk) - (Bk*sk*sk'*Bk)/(sk'*Bk*sk);
     Hk = (eye(n)-rhok*sk*yk')*Hk*(eye(n)-rhok*yk*sk')+rhok*sk*sk';
     
     % finish step

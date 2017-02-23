@@ -42,13 +42,13 @@ while i < 10
     
     if abs(phiBara) <= -c2*phiBar0
         % Second Wolfe condition satisfied
-        disp('Line search: Conditions satisfied')
+        %disp('Line search: Conditions satisfied')
         break
     end
 
     if phiBara >= 0
         % We are overstepping
-        disp('Line search: Case #2')
+        %disp('Line search: Case #2')
         alpha = zoom(phi, phiBar, constants, alpha, prevalpha);
         break
     end
