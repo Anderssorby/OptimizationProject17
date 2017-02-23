@@ -1,18 +1,20 @@
 function alpha = zoom(phi, phiBar, constants, a_lo, a_hi)
 % Assuming that the interval [a_lo, a_hi] contains step length
-% that satisfies the strong Wolfe conditions
+% that satisfies the Wolfe conditions
+% That means that a_lo satisifes while a_hi doesn't satisfy the Armijio rule
 
 c1 = constants(1);
 c2 = constants(2);
 
 alpha = a_lo;
+prevalpha = alpha;
 
 phiBar0 = phiBar(0);
 phi0 = phi(0);
 
 c = 0;
 
-while c < 1000
+while c < 10
 
     % This shouldn't happen
     if a_lo > a_hi
@@ -28,41 +30,48 @@ while c < 1000
     % Naive interpolation
     alpha = (a_hi + a_lo)/2;
 
-    a_lo
+    %a_lo
     
 
     phia = phi(alpha);
     
     if phia > phi0 + c1*alpha*phiBar0 || phia >= phi(a_lo)
+        % Alpha does also not satisfy the Armijio rule
+        % or a_lo is a better alpha than alpha
         % Our alpha is an improvement of a_hi
-        disp('Case #1');
+        %disp('Case #1');
         a_hi = alpha;
     else
-        disp('Case #2');
+        % alpha satisfies the Armijo rule and is an improvement to a_lo
+        disp('Zoom: a_lo updated');
         phiBara = phiBar(alpha);
-        if abs(phiBara) <= -c2*phiBar0   
-            disp('Found optimal alpha for c2');
-            % success
-            break
+        if abs(phiBara) <= -c2*phiBar0
+           % aplpha satisfies the second Wolfe condition
+           % and we are done
+           %disp('Found optimal alpha for c2');
+           break
         end
         if phiBara*(a_hi - a_lo) >= 0
-            % Change the interval
-            a_hi = a_lo;
+           % Change the interval
+           a_hi = a_lo;
         end
         a_lo = alpha;
     end
     c = c + 1;
 
+    h = a_hi-a_lo;
+    if h < 1E-4
+        % Don't let this be ridiculously small
+        alpha = a_lo;
+        break
+    end
+
+
     % Look out for errors
     if alpha <= 0
-        alpha
-        c
-        phiBar0
-        phi0
-        a_lo
-        a_hi
         error('Zoom: Alpha less than 0')
     end
+    prevalpha = alpha;
 end
 
 end
