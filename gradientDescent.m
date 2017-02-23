@@ -1,5 +1,5 @@
-function [theta,fvec] = gradientDescent(l,p,x0)
-
+function [theta,tocvec, fvec] = gradientDescent(l,p,x0)
+tic
 theta = x0;
 count = 0;
 c1 = 0.0001;
@@ -14,6 +14,7 @@ while 1
     theta = theta - gf*a;
     gf=gradf(l,theta,p);
     fvec(count) = sqrt(f(l,theta,p));
+    tocvec(count) = toc;
     if count > 1000
         error('Surpassed max number of iterations');
     end
@@ -24,5 +25,4 @@ while 1
         end
     end
 end
-
 end
