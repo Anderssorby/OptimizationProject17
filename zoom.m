@@ -17,9 +17,9 @@ c = 0;
 while c < 10
 
     % This shouldn't happen
-    if a_lo > a_hi
-        error('Zoom: a_lo > a_hi')
-    end
+    %if a_lo > a_hi
+    %    error('Zoom: a_lo > a_hi')
+    %end
 
     % Interpolate to find a test step length alpha
 
@@ -43,7 +43,7 @@ while c < 10
         a_hi = alpha;
     else
         % alpha satisfies the Armijo rule and is an improvement to a_lo
-        disp('Zoom: a_lo updated');
+        %disp('Zoom: a_lo updated');
         phiBara = phiBar(alpha);
         if abs(phiBara) <= -c2*phiBar0
            % aplpha satisfies the second Wolfe condition
@@ -73,5 +73,6 @@ while c < 10
     end
     prevalpha = alpha;
 end
+
 
 end

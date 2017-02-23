@@ -8,7 +8,7 @@ c1 = 1E-4;
 c2 = 0.1;
 
 % how much to scale alpha in each step
-inc = 1.1;
+inc = 1.5;
 
 % Store values
 prevphi = 0;
@@ -22,7 +22,7 @@ phiBar0 = phiBar(0);
 constants = [c1, c2];
 
 i = 1;
-while i < 100
+while i < 10
 
     if alpha <= 0
         alpha
@@ -47,7 +47,7 @@ while i < 100
     end
 
     if phiBara >= 0
-        % 
+        % We are overstepping
         disp('Line search: Case #2')
         alpha = zoom(phi, phiBar, constants, alpha, prevalpha);
         break
