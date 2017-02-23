@@ -13,7 +13,7 @@ inc = 1.5;
 % Store values
 prevphi = 0;
 prevalpha = 0;
-alpha = 0.1;
+alpha = 1;
 
 
 phi0 = phi(0);
