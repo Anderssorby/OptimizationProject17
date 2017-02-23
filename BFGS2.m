@@ -39,7 +39,13 @@ while 1
     yk = gfkp1 - gf;
     rhok = yk'*sk;
     rhok=1/rhok;
-    Hk = (eye(n)-rhok*sk*yk')*Hk*(eye(n)-rhok*yk*sk')+rhok*sk*sk';
+
+    if rhok <= 0
+        % This will create a not positive definite matrix
+        % and ruin our method. Therefore do not update the matrix.
+    else
+        Hk = (eye(n)-rhok*sk*yk')*Hk*(eye(n)-rhok*yk*sk')+rhok*sk*sk';
+    end
     
     % finish step
     k = k + 1;

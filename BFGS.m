@@ -51,7 +51,13 @@ while 1
     gfkp1 = gradf(l, xk, p);
     yk = gfkp1 - gf;
 
-    Bk = Bk + (yk*yk')/(yk'*sk) - (Bk*sk*sk'*Bk)/(sk'*Bk*sk);
+    yksk = yk'*sk;
+    if yksk <= 0
+        % This will create a not positive definite matrix
+        % and ruin our method. Therefore do not update the matrix.
+    else
+        Bk = Bk + (yk*yk')/yksk - (Bk*sk*sk'*Bk)/(sk'*Bk*sk);
+    end
 
     % finish step
     k = k + 1;
