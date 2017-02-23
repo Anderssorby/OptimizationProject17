@@ -1,5 +1,5 @@
-function [theta, k] = BFGS2(l,p, x0)
-
+function [theta,tocvec,fvec] = BFGS2(l,p, x0)
+tic
 max_steps = 1000;
 
 n = length(l);
@@ -46,9 +46,11 @@ while 1
     % finish step
     k = k + 1;
     gf = gfkp1;
+    fvec(k) = sqrt(f(l,xk,p));
+    tocvec(k) = toc;
     
 end
-disp(k)
+
 theta = xk;
 
 end
