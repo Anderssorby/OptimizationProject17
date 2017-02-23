@@ -21,7 +21,7 @@ phiBar0 = phiBar(0);
 
 constants = [c1, c2];
 
-i = 1;
+i = 0;
 while i < 10
 
     if alpha <= 0
@@ -60,4 +60,5 @@ while i < 10
 
     i = i + 1;
 end
+
 end

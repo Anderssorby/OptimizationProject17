@@ -25,13 +25,12 @@ while c < 10
 
     % Minimizing the interpolation on [a_lo, a_hi]
     % This is our trial step length
-    %alpha = (phiBar(a_lo)*a_hi^2)/(2*(phi(a_hi) - phi(a_lo)- phiBar(a_lo)*a_hi));
+    alpha = interpolateQuad(a_lo, a_hi, phi(a_lo), phiBar(a_lo), phi(a_hi));
    
     % Naive interpolation
-    alpha = (a_hi + a_lo)/2;
-
-    %a_lo
-    
+    if alpha <= 0
+        alpha = (a_hi + a_lo)/2;
+    end
 
     phia = phi(alpha);
     
