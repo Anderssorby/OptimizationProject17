@@ -4,7 +4,7 @@ function alpha = zoom(phi, phiBar, constants, a_lo, a_hi)
 % That means that a_lo satisifes while a_hi doesn't satisfy the Armijio rule
 % alpha = Step length for next step of our algorithm
 % phi = function phi(a) = f(x+a*p)
-% phiBar = the derivative of phi(a) wrt a
+% phiBar = the derivative of phi(a) wrt a, multiplied with p_k
 
 
 c1 = constants(1);
