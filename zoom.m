@@ -20,11 +20,6 @@ c = 0;
 
 while c < 10
 
-    % This shouldn't happen
-    %if a_lo > a_hi
-    %    error('Zoom: a_lo > a_hi')
-    %end
-
     % Interpolate to find a test step length alpha
 
     % Minimizing the interpolation on [a_lo, a_hi]
@@ -42,16 +37,13 @@ while c < 10
         % Alpha does also not satisfy the Armijio rule
         % or a_lo is a better alpha than alpha
         % Our alpha is an improvement of a_hi
-        %disp('Case #1');
         a_hi = alpha;
     else
         % alpha satisfies the Armijo rule and is an improvement to a_lo
-        %disp('Zoom: a_lo updated');
         phiBara = phiBar(alpha);
         if abs(phiBara) <= -c2*phiBar0
            % aplpha satisfies the second Wolfe condition
            % and we are done
-           %disp('Found optimal alpha for c2');
            break
         end
         if phiBara*(a_hi - a_lo) >= 0
@@ -64,7 +56,7 @@ while c < 10
 
     h = a_hi-a_lo;
     if h < 1E-4
-        % Don't let this be ridiculously small
+        % Don't let h be ridiculously small
         alpha = a_lo;
         break
     end
