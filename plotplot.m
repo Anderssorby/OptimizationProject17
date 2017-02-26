@@ -1,12 +1,9 @@
-% a = 100;
-% l = randi(20,a,1);
-% p = [randi(20), randi(30)]';
-% x0 = 2*pi*rand(a,1);
-
+%parameters
 l = [1 3 2 1]';
 p = [0 1]';
 x0 = [1 1 1 1]';
 
+%Average time estimate for 11 solvings of the problem
 [u,vbar,wbar] = gradientDescent(l,p,x0);
 [U, Vbar, Wbar]=BFGS2(l,p,x0);
 for i = 1:10
@@ -19,6 +16,7 @@ end
 n = length(v);
 N = length(V);
 
+%Ploting results
 figure;
 subplot(1,2,1);
 semilogx(w,1:n);
