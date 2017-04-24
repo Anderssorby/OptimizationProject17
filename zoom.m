@@ -2,6 +2,10 @@ function alpha = zoom(phi, phiBar, constants, a_lo, a_hi)
 % Assuming that the interval [a_lo, a_hi] contains step length
 % that satisfies the Wolfe conditions
 % That means that a_lo satisifes while a_hi doesn't satisfy the Armijio rule
+% alpha = Step length for next step of our algorithm
+% phi = function phi(a) = f(x+a*p)
+% phiBar = the derivative of phi(a) wrt a, multiplied with p_k
+
 
 c1 = constants(1);
 c2 = constants(2);
@@ -15,11 +19,6 @@ phi0 = phi(0);
 c = 0;
 
 while c < 10
-
-    % This shouldn't happen
-    %if a_lo > a_hi
-    %    error('Zoom: a_lo > a_hi')
-    %end
 
     % Interpolate to find a test step length alpha
 
@@ -38,16 +37,13 @@ while c < 10
         % Alpha does also not satisfy the Armijio rule
         % or a_lo is a better alpha than alpha
         % Our alpha is an improvement of a_hi
-        %disp('Case #1');
         a_hi = alpha;
     else
         % alpha satisfies the Armijo rule and is an improvement to a_lo
-        %disp('Zoom: a_lo updated');
         phiBara = phiBar(alpha);
         if abs(phiBara) <= -c2*phiBar0
            % aplpha satisfies the second Wolfe condition
            % and we are done
-           %disp('Found optimal alpha for c2');
            break
         end
         if phiBara*(a_hi - a_lo) >= 0
@@ -60,7 +56,7 @@ while c < 10
 
     h = a_hi-a_lo;
     if h < 1E-4
-        % Don't let this be ridiculously small
+        % Don't let h be ridiculously small
         alpha = a_lo;
         break
     end
