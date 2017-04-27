@@ -5,5 +5,5 @@ function res = gradf(l,theta,p)
     a=cumsum(theta);
     s1=cumsum(l.*cos(a),'reverse');
     s2=cumsum(l.*sin(a),'reverse');
-    res=-2*(s1(1)-p(1))*s2+2*(s2(1)-p(2))*s1;
+    res=-(s1(1)-p(1))*s2+(s2(1)-p(2))*s1;
 end
