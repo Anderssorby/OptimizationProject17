@@ -1,10 +1,11 @@
-function p = boxProjection(g, l, u)
+function g = boxProjection(g, l, u)
 % Used in BCL
-if g <= l
-    p = l;
-elseif g >= u
-    p = u;
-else
-    p = g;
-end
+for i = 1:length(g)
+    if g(i) <= l
+        g(i) = l;
+    elseif g(i) >= u
+        g(i) = u;
+    else
+        g(i) = g(i);
+    end
 end
