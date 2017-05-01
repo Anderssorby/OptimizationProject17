@@ -38,7 +38,7 @@ while 1
     % Line search which satisfy Wolfe conditions
     alpha = line_search(phi, phiBar);
     
-    thetak = thetak + alpha*pk;
+    thetak = (thetak + alpha*pk);
     sk = alpha*pk;
     gfkp1 = gradFunc( thetak);
     yk = gfkp1 - gf;

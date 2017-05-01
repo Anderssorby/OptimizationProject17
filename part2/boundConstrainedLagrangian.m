@@ -14,8 +14,8 @@ s = length(pmat(1,:));
 n = length(theta)/s;
 
 %convergence tolerance
-tolEtha = 0.1;
-tolOmega = 0.1;
+tolEtha = 0.001;
+tolOmega = 1;
 
 % start params
 %mu = 10;
