@@ -7,5 +7,5 @@ function res = gradfvec(l,theta,p,pos,s)
     s2=cumsum(l.*sin(a),'reverse');
     res=-(s1(1)-p(1))*s2+(s2(1)-p(2))*s1;
     n = length(res);
-    res = [zeros((pos-1)*n;res;zeros((s-pos)*n];
+    res = [zeros((pos-1)*n,1);res;zeros((s-pos)*n,1)];
 end

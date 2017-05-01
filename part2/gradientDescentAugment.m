@@ -10,7 +10,7 @@ function [theta] = gradientDescentAugment(l,pmat,theta0,tol,mu,lambda,n,s)
 %tic %start timing 
 theta = theta0; %Initiate theta
 count = 0; %Initiate counter
-c1 = 0.1; %Choose c1
+c1 = 0.0001; %Choose c1
 gl = gradLaGrange(theta,lambda,mu,n,s,pmat,l); %Find gradient at initial position
 rho = 0.5; %Define slacking factor
 while true
