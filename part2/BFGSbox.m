@@ -1,19 +1,18 @@
-function theta = BFGSbox(l,p,theta0,mu,lambda,n,s,maxAngle,omega)
+function theta = BFGSbox(theta0,omega,P,func,gradFunc)
 
 max_steps = 5000;
 
-P = @(theta) boxProjection(theta, -maxAngle, maxAngle);
-
+%P = @(theta) boxProjection(theta, -maxAngle, maxAngle);
+n = length(theta0);
 %Approximation of the inverse of the hessian
-Hk = eye(n*s);
+Hk = eye(n);
 
 thetak = theta0;
 
 %Calculate gradient
-gf = gradLaGrange(thetak,lambda,mu,n,s,p,l);
+gf = gradFunc(thetak);
 k = 0;
-c1 = 1E-3;
-rho = 0.5;
+
 while 1
     % checking for errors
     if k > max_steps
@@ -32,15 +31,16 @@ while 1
     % Calculate search direction
     pk = Hk*(-gf);
 
-    phi = @(alpha) laGrange(thetak + alpha*pk,lambda,mu,n,s,p,l);
-    phiBar = @(alpha) gradLaGrange(thetak + alpha*pk,lambda,mu,n,s,p,l)'*pk;
+    %phi = @(alpha) laGrange(thetak + alpha*pk,lambda,mu,n,s,p,l);
+    phi = @(alpha) func(thetak + alpha*pk);
+    phiBar = @(alpha) gradFunc(thetak + alpha*pk)'*pk;
     
     % Line search which satisfy Wolfe conditions
     alpha = line_search(phi, phiBar);
     
     thetak = thetak + alpha*pk;
     sk = alpha*pk;
-    gfkp1 = gradLaGrange( thetak,lambda,mu,n,s, p,l);
+    gfkp1 = gradFunc( thetak);
     yk = gfkp1 - gf;
     rhok = yk'*sk;
     rhok=1/rhok;
@@ -50,7 +50,7 @@ while 1
         % and ruin our method. Therefore do not update the matrix.
     else
         %Update approximation matrix
-        Hk = (eye(n*s)-rhok*sk*yk')*Hk*(eye(n*s)-rhok*yk*sk')+rhok*sk*sk';
+        Hk = (eye(n)-rhok*sk*yk')*Hk*(eye(n)-rhok*yk*sk')+rhok*sk*sk';
     end
     
     % finish step

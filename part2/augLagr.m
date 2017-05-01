@@ -1,8 +1,8 @@
 function [theta,eval] = augLagr(l,pmat,theta,lambda,mu,tol)
-reachTol = 1E-4;
+
 ctol = 1E-5;
 
-if ~checkReachable(l,pmat,reachTol)
+if ~checkAnnulus(l,pmat)
     error('Not reachable');
 end
 
@@ -12,11 +12,12 @@ n = length(theta)/s;
 ksi = 3;
 gamma = 0.8;
 
-gd = @(theta,tol,mu,lambda) BAFGS(l,pmat,theta,tol,mu,lambda,n,s);
 k=1;
 
 while 1
-    theta = gd(theta,tol,mu,lambda)
+    func = @(theta) laGrange(theta,lambda,mu,n,s,pmat,l);
+    gradFunc = @(theta) gradLaGrange(theta,lambda,mu,n,s,pmat,l);
+    theta = BFGS(theta,tol,func,gradFunc)
     if checkConstraints(l,theta,pmat,n,s,ctol)
         break;
     end

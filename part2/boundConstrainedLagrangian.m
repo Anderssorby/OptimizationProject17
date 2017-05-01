@@ -1,4 +1,4 @@
-function theta = boundConstrainedLagrangian(l,pmat,theta,lambda,mu,maxAngle)
+function [theta,eval] = boundConstrainedLagrangian(l,pmat,theta,lambda,mu,maxAngle)
 % WORK IN PROGRESS
 %x0
 %lambda0
@@ -24,14 +24,16 @@ etha = 1/(mu^0.1);
 
 P = @(theta) boxProjection(theta, -maxAngle, maxAngle);
 
-gradBCL = @(theta, lambda, mu, cvec, gradCvec) gradE(l, pmat, theta)-lambda*cvec'+mu*sum(cvec.*gradCvec);
+%gradBCL = @(theta, lambda, mu, cvec, gradCvec) gradE(l, pmat, theta)-lambda*cvec'+mu*sum(cvec.*gradCvec);
 
-gd = @(theta,mu,lambda,omega) BFGSbox(l,pmat,theta,mu,lambda,n,s,maxAngle,omega);
+gd = @(theta,mu,lambda,omega,func,gradFunc) BFGSbox(theta,omega,P,func,gradFunc);
 %gf = gradLaGrange(thetak,lambda,mu,n,s,p,l);
 k = 0;
 while 1
+    func = @(theta) laGrange(theta,lambda,mu,n,s,pmat,l);
+    gradFunc = @(theta) gradLaGrange(theta,lambda,mu,n,s,pmat,l);
     % solve such that modified KKT holds for less than tolerance
-    theta = gd(theta, mu, lambda,omega)
+    theta = gd(theta, mu, lambda,omega,func,gradFunc)
     %if checkConstraints(l,theta,pmat,n,s,ctol)
     %    break;
     %end
@@ -61,4 +63,5 @@ while 1
 
     k = k + 1;
 end
+eval = E(theta,n,s);
 end
