@@ -3,9 +3,8 @@ function [theta,eval] = boundConstrainedLagrangian(l,pmat,theta,lambda,mu,maxAng
 %x0
 %lambda0
 
-reachTol = 1E-4;
-ctol = 1;
-
+c1=0.2;
+c2=0.9;
 % if ~checkReachable(l,pmat,reachTol)
 %     error('Not reachable');
 % end
@@ -26,7 +25,7 @@ P = @(theta) boxProjection(theta, -maxAngle, maxAngle);
 
 %gradBCL = @(theta, lambda, mu, cvec, gradCvec) gradE(l, pmat, theta)-lambda*cvec'+mu*sum(cvec.*gradCvec);
 
-gd = @(theta,mu,lambda,omega,func,gradFunc) BFGSbox(theta,omega,P,func,gradFunc);
+gd = @(theta,mu,lambda,omega,func,gradFunc) BFGSbox(theta,omega,P,func,gradFunc,c1,c2);
 %gf = gradLaGrange(thetak,lambda,mu,n,s,p,l);
 k = 0;
 while 1
@@ -56,7 +55,7 @@ while 1
         omega = omega/mu;
     else
         % Increase penalty parameter, tighten tolerances
-        mu = 2*mu;
+        mu = 10*mu;
         etha = 1/(mu^0.1);
         omega = 1/mu;
     end

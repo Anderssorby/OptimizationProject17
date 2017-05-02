@@ -1,4 +1,4 @@
-function theta = BFGSbox(theta0,omega,P,func,gradFunc)
+function theta = BFGSbox(theta0,omega,P,func,gradFunc,c1,c2)
 
 max_steps = 5000;
 
@@ -28,6 +28,8 @@ while 1
             break
         %end
     end
+    
+    
     % Calculate search direction
     pk = Hk*(-gf);
 
@@ -36,21 +38,27 @@ while 1
     phiBar = @(alpha) gradFunc(thetak + alpha*pk)'*pk;
     
     % Line search which satisfy Wolfe conditions
-    alpha = line_search(phi, phiBar);
+    alpha = line_search(phi, phiBar,c1,c2);
     
-    thetak = (thetak + alpha*pk);
-    sk = alpha*pk;
+    thetakk = P(thetak + alpha*pk);
+    sk = thetakk-thetak;
+    thetak = thetakk;
     gfkp1 = gradFunc( thetak);
     yk = gfkp1 - gf;
     rhok = yk'*sk;
     rhok=1/rhok;
+    
+    
+    if abs(rhok)>1E10
+        Hk = eye(n);
+    end
 
     if rhok <= 0
         % This will create a not positive definite matrix
         % and ruin our method. Therefore do not update the matrix.
     else
         %Update approximation matrix
-        Hk = (eye(n)-rhok*sk*yk')*Hk*(eye(n)-rhok*yk*sk')+rhok*sk*sk';
+        Hk = (eye(n)-rhok*sk*yk')*Hk*(eye(n)-rhok*yk*sk')+rhok*(sk*sk');
     end
     
     % finish step

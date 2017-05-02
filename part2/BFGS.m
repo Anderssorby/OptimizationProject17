@@ -1,4 +1,4 @@
-function theta = BFGS(theta0,tol,func,gradFunc)
+function theta = BFGS(theta0,tol,func,gradFunc,c1,c2)
 
 max_steps = 1000;
 n = length(theta0);
@@ -10,8 +10,7 @@ thetak = theta0;
 %Calculate gradient
 gf = gradFunc(thetak);
 k = 0;
-c1 = 1E-3;
-rho = 0.5;
+
 while 1
     % checking for errors
     if k > max_steps
@@ -34,7 +33,7 @@ while 1
     phiBar = @(alpha) gradFunc(thetak + alpha*pk)'*pk;
     
     % Line search which satisfy Wolfe conditions
-    alpha = line_search(phi, phiBar);
+    alpha = line_search(phi, phiBar,c1,c2);
     
     thetak = thetak + alpha*pk;
     sk = alpha*pk;
@@ -48,7 +47,7 @@ while 1
         % and ruin our method. Therefore do not update the matrix.
     else
         %Update approximation matrix
-        Hk = (eye(n)-rhok*sk*yk')*Hk*(eye(n)-rhok*yk*sk')+rhok*sk*sk';
+        Hk = (eye(n)-rhok*sk*yk')*Hk*(eye(n)-rhok*yk*sk')+rhok*(sk*sk');
     end
     
     % finish step

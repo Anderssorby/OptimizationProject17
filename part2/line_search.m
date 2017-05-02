@@ -1,7 +1,5 @@
-function [alpha] = line_search(phi, phiBar)
+function [alpha] = line_search(phi, phiBar,c1,c2)
 
-c1 = 1E-4;
-c2 = 0.1;
 
 % how much to scale alpha in each step
 inc = 1.5;
