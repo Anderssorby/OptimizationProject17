@@ -25,4 +25,6 @@ title('Robot arm')
 for i = 1:length(pmat(1,:))
     plot(pmat(1,i),pmat(2,i),'r*')
 end
+axis equal
+end
     
