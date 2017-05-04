@@ -22,11 +22,7 @@ while 1
     end
     %Stop condition
     if norm(thetak-P(thetak-gf))<omega
-        %[b,thetak] = checkEnd(l,thetak,p);
-        %gf = gradLaGrange(l, thetak, p);
-        %if b
             break
-        %end
     end
     
     
@@ -41,6 +37,7 @@ while 1
     alpha = line_search(phi, phiBar,c1,c2);
     
     thetakk = P(thetak + alpha*pk);
+    %sk = alpha*pk;
     sk = thetakk-thetak;
     thetak = thetakk;
     gfkp1 = gradFunc( thetak);
@@ -49,9 +46,9 @@ while 1
     rhok=1/rhok;
     
     
-    if abs(rhok)>1E10
-        Hk = eye(n);
-    end
+%     if abs(rhok)>1E6
+%         Hk = eye(n);
+%     end
 
     if rhok <= 0
         % This will create a not positive definite matrix

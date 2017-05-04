@@ -1,9 +1,11 @@
-function [theta,eval] = boundConstrainedLagrangian(l,pmat,theta,lambda,mu,maxAngle)
+function [theta,eval] = boundConstrainedLagrangian(l,pmat,theta,lambda,mu2,maxAngle,mu)
 % WORK IN PROGRESS
 %x0
 %lambda0
+theta = initVals(l,pmat,theta,maxAngle,lambda,mu2);
 
-c1=0.2;
+
+c1=0.001;
 c2=0.9;
 % if ~checkReachable(l,pmat,reachTol)
 %     error('Not reachable');
@@ -13,7 +15,7 @@ s = length(pmat(1,:));
 n = length(theta)/s;
 
 %convergence tolerance
-tolEtha = 0.001;
+tolEtha = 0.1;
 tolOmega = 1;
 
 % start params
@@ -55,7 +57,7 @@ while 1
         omega = omega/mu;
     else
         % Increase penalty parameter, tighten tolerances
-        mu = 10*mu;
+        mu = 2*mu;
         etha = 1/(mu^0.1);
         omega = 1/mu;
     end
