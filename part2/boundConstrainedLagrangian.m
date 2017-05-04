@@ -5,7 +5,7 @@ function [theta,eval] = boundConstrainedLagrangian(l,pmat,theta,lambda,mu2,maxAn
 theta = initVals(l,pmat,theta,maxAngle,lambda,mu2);
 
 
-c1=0.001;
+c1=0.1;
 c2=0.9;
 % if ~checkReachable(l,pmat,reachTol)
 %     error('Not reachable');
@@ -15,8 +15,8 @@ s = length(pmat(1,:));
 n = length(theta)/s;
 
 %convergence tolerance
-tolEtha = 0.1;
-tolOmega = 1;
+tolEtha = 0.4;
+tolOmega = 0.5;
 
 % start params
 %mu = 10;
@@ -44,9 +44,12 @@ while 1
     end
 
     if norm(cvec) <= etha
+        disp('ja')
+        disp(lambda)
+        disp(cvec)
         % test convergence
 
-        if norm(cvec) <= tolEtha && norm(theta-P(theta-gradLaGrange(theta,lambda,mu,n,s,pmat,l))) <= tolOmega
+        if norm(cvec) <= tolEtha && norm(gradFunc(theta)) <= tolOmega
             % Acceptable solution found
             break;
         end

@@ -21,7 +21,7 @@ while 1
         error('NaN');
     end
     %Stop condition
-    if norm(thetak-P(thetak-gf))<omega
+    if norm(gf)<omega
             break
     end
     
@@ -50,13 +50,13 @@ while 1
 %         Hk = eye(n);
 %     end
 
-    if rhok <= 0
-        % This will create a not positive definite matrix
-        % and ruin our method. Therefore do not update the matrix.
-    else
-        %Update approximation matrix
-        Hk = (eye(n)-rhok*sk*yk')*Hk*(eye(n)-rhok*yk*sk')+rhok*(sk*sk');
-    end
+%     if rhok <= 0
+%         % This will create a not positive definite matrix
+%         % and ruin our method. Therefore do not update the matrix.
+%     else
+%         %Update approximation matrix
+%         Hk = (eye(n)-rhok*sk*yk')*Hk*(eye(n)-rhok*yk*sk')+rhok*(sk*sk');
+%     end
     
     % finish step
     k = k + 1;
