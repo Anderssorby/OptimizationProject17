@@ -27,7 +27,7 @@ while 1
     gradFunc = @(theta) gradLaGrangeInit(theta,lambda,mu,n,s,p,l);
     % solve such that modified KKT holds for less than tolerance
     %try
-    theta = gd(theta, mu, lambda,omega,func,gradFunc)
+    theta = gd(theta, mu, lambda,omega,func,gradFunc);
     %catch ME
     %    error('Could not hit all points with initVals')
     %end
