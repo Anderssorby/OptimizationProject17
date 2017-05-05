@@ -19,14 +19,18 @@ P = @(theta) boxProjection(theta, -maxAngle, maxAngle);
 
 %gradBCL = @(theta, lambda, mu, cvec, gradCvec) gradE(l, pmat, theta)-lambda*cvec'+mu*sum(cvec.*gradCvec);
 
-gd = @(theta,mu,lambda,omega,func,gradFunc) BFGSbox(theta,omega,P,func,gradFunc,c1,c2);
+gd = @(theta,mu,lambda,omega,func,gradFunc) gradientBoxProjection(theta,omega,P,func,gradFunc,c1,c2);
 %gf = gradLaGrange(thetak,lambda,mu,n,s,p,l);
 k = 0;
 while 1
     func = @(theta) laGrangeInit(theta,lambda,mu,n,s,p,l);
     gradFunc = @(theta) gradLaGrangeInit(theta,lambda,mu,n,s,p,l);
     % solve such that modified KKT holds for less than tolerance
-    theta = gd(theta, mu, lambda,omega,func,gradFunc);
+    %try
+    theta = gd(theta, mu, lambda,omega,func,gradFunc)
+    %catch ME
+    %    error('Could not hit all points with initVals')
+    %end
     %if checkConstraints(l,theta,pmat,n,s,ctol)
     %    break;
     %end
@@ -56,5 +60,5 @@ while 1
 
     k = k + 1;
 end
-disp('yay')
+
 end

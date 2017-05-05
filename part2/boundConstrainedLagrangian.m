@@ -20,7 +20,7 @@ etha = 1/(mu^0.1);
 P = @(theta) boxProjection(theta, -maxAngle, maxAngle);
 
 %line search algorithm
-gd = @(theta,mu,lambda,omega,func,gradFunc) BFGSbox(theta,omega,P,func,gradFunc,c1,c2);
+gd = @(theta,mu,lambda,omega,func,gradFunc) gradientBoxProjection(theta,omega,P,func,gradFunc,c1,c2);
 
 k = 0;
 while 1
