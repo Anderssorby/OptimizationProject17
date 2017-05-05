@@ -1,4 +1,10 @@
 function theta = gradientBoxProjection(theta0,omega,P,func,gradFunc,c1,c2)
+%theta0 = initial value for theta
+%omega = tolerance for the norm of the gradient 
+%P = projection function
+%func = the function we want to minimise
+%gradFunc = the gradient of the function we want to minimise
+%c1,c2 = parameters for the line search
 
 max_steps = 1000;
 

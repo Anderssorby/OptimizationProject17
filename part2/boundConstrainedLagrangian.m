@@ -6,7 +6,7 @@ function [theta,eval] = boundConstrainedLagrangian(l,p,theta,lambda,mu2,maxAngle
 %mu2 = penalty parameter for finding initial values
 %maxAngle = max allowed angle for the algorithm
 %mu = penalty parameter the gradient projection method
-%tolOmega = tolerance for the gradient in the gradient projection method
+%tolOmega = tolerance for the norm of the gradient in the gradient projection method
 %tolEta = tolerance for the norm of the C-vec in the gradient projection
 %method
 
