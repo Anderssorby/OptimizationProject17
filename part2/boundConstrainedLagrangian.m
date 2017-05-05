@@ -34,7 +34,7 @@ while 1
     func = @(theta) laGrange(theta,lambda,mu,n,s,pmat,l);
     gradFunc = @(theta) gradLaGrange(theta,lambda,mu,n,s,pmat,l);
     % solve such that modified KKT holds for less than tolerance
-    theta = gd(theta, mu, lambda,omega,func,gradFunc)
+    theta = gd(theta, mu, lambda,omega,func,gradFunc);
     %if checkConstraints(l,theta,pmat,n,s,ctol)
     %    break;
     %end
@@ -44,9 +44,6 @@ while 1
     end
 
     if norm(cvec) <= etha
-        disp('ja')
-        disp(lambda)
-        disp(cvec)
         % test convergence
 
         if norm(cvec) <= tolEtha && norm(gradFunc(theta)) <= tolOmega

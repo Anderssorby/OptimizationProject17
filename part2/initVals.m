@@ -26,7 +26,7 @@ while 1
     func = @(theta) laGrangeInit(theta,lambda,mu,n,s,p,l);
     gradFunc = @(theta) gradLaGrangeInit(theta,lambda,mu,n,s,p,l);
     % solve such that modified KKT holds for less than tolerance
-    theta = gd(theta, mu, lambda,omega,func,gradFunc)
+    theta = gd(theta, mu, lambda,omega,func,gradFunc);
     %if checkConstraints(l,theta,pmat,n,s,ctol)
     %    break;
     %end
