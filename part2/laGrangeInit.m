@@ -1,4 +1,5 @@
 function L = laGrangeInit(thetavec,lambda,mu,n,s,pmat,l)
+%Augmented Lagrangian without energy funciton E
 
 L = 0;
 

@@ -1,6 +1,9 @@
 function confSpace(l,MA,holdon)
+%Plots configuration space for a given l and max angle MA.
+%holdon is a bool telling if this should be plotted in a figure that is
+%already open.
 n = length(l);
-nAngles = 30;
+nAngles = 100;
 angles = -MA:2*MA/(nAngles-1):MA;
 
 theta = zeros(n,1);
@@ -30,7 +33,6 @@ if~holdon
 end
 plot(pmat(1,:),pmat(2,:),'.');
 axis equal
-grid on
 hold on
 
 end

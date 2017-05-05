@@ -1,5 +1,5 @@
 function bool = checkAnnulus(l,p)
-
+%returns true is all points p are inside the annulus spanned by the arms l
 bool=1;
 
 lmax = sum(l);

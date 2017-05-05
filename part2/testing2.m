@@ -27,4 +27,4 @@ mu = 2;
 mu2 = 1.1;
 
 [theta,eval] = boundConstrainedLagrangian(l,p,theta,lambda,mu2,maxAngle,mu,0.5,0.5)
-plotBat(l,theta,p,1);
+plotArms(l,theta,p,0);

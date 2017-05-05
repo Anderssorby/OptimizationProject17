@@ -34,7 +34,7 @@ eta = 1/(mu^0.1);
 %Projection function
 P = @(theta) boxProjection(theta, -maxAngle, maxAngle);
 
-%line search algorithm
+%Gradient descent function with box projection
 gd = @(theta,mu,lambda,omega,func,gradFunc) gradientBoxProjection(theta,omega,P,func,gradFunc,c1,c2);
 
 k = 0;
