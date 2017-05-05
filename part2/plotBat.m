@@ -1,9 +1,11 @@
-function plotBat(l,theta,pmat)
+function plotBat(l,theta,pmat,holdon)
 
 cords = zeros(2,length(l)+1);
 
-
-figure; hold on;
+if ~holdon
+    figure; 
+end
+hold on;
 for j = 1:length(pmat(1,:))
     
     for i = 1:length(l)
@@ -11,7 +13,7 @@ for j = 1:length(pmat(1,:))
     end
 
     for i = 1:length(l)
-        plot([cords(1,i), cords(1,i+1)],[cords(2,i), cords(2,i+1)],'bl')
+        plot([cords(1,i), cords(1,i+1)],[cords(2,i), cords(2,i+1)],'black','LineWidth',2)
         plot(cords(1,i),cords(2,i),'ko')
     end
     plot(cords(1,end),cords(2,end),'k')

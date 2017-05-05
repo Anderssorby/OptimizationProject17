@@ -1,4 +1,4 @@
-function confSpace(l,MA)
+function confSpace(l,MA,holdon)
 n = length(l);
 nAngles = 30;
 angles = -MA:2*MA/(nAngles-1):MA;
@@ -25,12 +25,12 @@ while sum(countvec) < n*nAngles
     countvec(k) = countvec(k) + 1;
     
 end
-figure;
+if~holdon
+    figure;
+end
 plot(pmat(1,:),pmat(2,:),'.');
 axis equal
 grid on
 hold on
-theta = ones(n,1)*MA;
-p = bigEff(l,theta,n);
-plot([2*p(1),0,2*p(1)],[2*p(2),0,-2*p(2)])
+
 end
