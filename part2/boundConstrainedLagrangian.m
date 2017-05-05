@@ -29,7 +29,7 @@ while 1
     gradFunc = @(theta) gradLaGrange(theta,lambda,mu,n,s,pmat,l);
     
     % minimise with given tolerances
-    theta = gd(theta, mu, lambda,omega,func,gradFunc)
+    theta = gd(theta, mu, lambda,omega,func,gradFunc);
     
     %Make C-vector
     cvec = zeros(s,1);

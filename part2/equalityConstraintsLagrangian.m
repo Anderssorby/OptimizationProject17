@@ -26,7 +26,7 @@ while 1
     gradFunc = @(theta) gradLaGrange(theta,lambda,mu,n,s,pmat,l);
     
     %Minimise the augmented lagrangian
-    theta = BFGS(theta,tol,func,gradFunc,c1,c2)
+    theta = BFGS(theta,tol,func,gradFunc,c1,c2);
     
     %Calculat C-vec
     cvec = zeros(2*s,1);
