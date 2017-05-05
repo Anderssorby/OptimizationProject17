@@ -20,11 +20,7 @@ while 1
     end
     %Stop condition
     if norm(gf)<tol
-        %[b,thetak] = checkEnd(l,thetak,p);
-        %gf = gradLaGrange(l, thetak, p);
-        %if b
-            break
-        %end
+         break
     end
     % Calculate search direction
     pk = Hk*(-gf);
@@ -53,10 +49,6 @@ while 1
     % finish step
     k = k + 1;
     gf = gfkp1;
-    %Update error vector
-    %fvec(k) = sqrt(laGrange(thetak,lambda,mu,n,s,p,l));
-    %Update timer vecor
-    %tocvec(k) = toc;
     
 end
 
